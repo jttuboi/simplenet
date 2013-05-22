@@ -1,0 +1,15 @@
+.settings/
+.metadata/
+*.war
+target/
+coverage/
+bin/
+*~
+*.class
+*.swp
+.svn
+.project
+.classpath
+*.jar
+*.ear
+jdbc-dev.properties
