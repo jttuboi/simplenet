@@ -18,6 +18,10 @@
 		<jpa2.maxmem>512m</jpa2.maxmem>
 		<spring-version>3.0.3.RELEASE</spring-version>
 		<slf4j-version>1.5.8</slf4j-version>
+		<hibernate-version>3.5.0-Beta-2</hibernate-version>
+		<jpa-api-version>2.0-cr-1</jpa-api-version>
+		
+		
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -36,13 +40,13 @@
 			<dependency>
 				<groupId>org.hibernate.java-persistence</groupId>
 				<artifactId>jpa-api</artifactId>
-				<version>2.0-cr-1</version>
+				<version>${jpa-api-version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
-				<version>3.5.0-Beta-2</version>
+				<version>${hibernate-version}</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
