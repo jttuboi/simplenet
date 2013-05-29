@@ -12,13 +12,13 @@ public class UserAccount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name="name",length=80)
+
+	@Column(name = "name", length = 80)
 	private String name;
-	
-	@Column(name="email",length=120)
+
+	@Column(name = "email", length = 120)
 	private String email;
-	
+
 	private String password;
 
 	public Long getId() {
