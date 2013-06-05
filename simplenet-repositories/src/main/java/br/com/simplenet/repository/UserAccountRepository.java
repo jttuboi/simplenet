@@ -5,7 +5,7 @@ import java.util.List;
 import br.com.simplenet.entities.UserAccount;
 
 public interface UserAccountRepository {
-	
+
 	UserAccount save(UserAccount userAccount) throws Exception;
 
 	UserAccount update(UserAccount userAccount) throws Exception;
