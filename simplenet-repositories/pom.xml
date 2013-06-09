@@ -9,13 +9,12 @@
 	</parent>
 	<name>Simplenet Repositories</name>
 	<description>Repository module for Simplenet.</description>
-	<groupId>br.com.simplenet</groupId>
 	<artifactId>simplenet-repositories</artifactId>
-	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<url>http://maven.apache.org</url>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>org.hibernate.java-persistence</groupId>
 			<artifactId>jpa-api</artifactId>
@@ -26,9 +25,11 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.7</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -80,11 +81,13 @@
 			<artifactId>spring-asm</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>br.com.simplenet</groupId>
 			<artifactId>simplenet-models</artifactId>
@@ -92,4 +95,5 @@
 		</dependency>
 
 	</dependencies>
+
 </project>

@@ -7,11 +7,10 @@
 		<artifactId>simplenet</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
+
 	<name>Simplenet Models</name>
 	<description>Model module for Simplenet.</description>
-	<groupId>br.com.simplenet</groupId>
 	<artifactId>simplenet-models</artifactId>
-	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<url>http://maven.apache.org</url>
 
