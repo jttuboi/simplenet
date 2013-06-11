@@ -22,4 +22,35 @@ public class UserAccountRepositoryImpl implements UserAccountRepository {
 		this.entityManager.persist(userAccount);
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public boolean delete(Long id) {
+		//precisa retornar algo??
+		// usa cast??
+		UserAccount user = this.entityManager.find(UserAccount.class, id);
+		if (user != null) {
+			this.entityManager.remove(user);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void update(UserAccount userAccount) {
+		this.entityManager.merge(userAccount);
+	}
+
+	@Override
+	public UserAccount findBy(Long id) {
+		return this.entityManager.find(UserAccount.class, id);
+	}
+
+//	@Override
+//	public void findAll() throws Exception {
+//		// TODO Auto-generated method stub
+//		
+//	}
+	
+	
 }
