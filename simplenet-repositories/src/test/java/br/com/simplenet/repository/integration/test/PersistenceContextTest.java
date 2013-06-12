@@ -26,14 +26,6 @@ public class PersistenceContextTest {
 		assertNotNull(entityManager);
 	}
 
-	@Test
-	@Transactional(propagation = Propagation.REQUIRED)
-	public void persistTest() {
-		UserAccount teste = new UserAccount();
-		entityManager.persist(teste);
-		assertNotNull(teste.getId());
-		System.out.println(teste.getId().intValue());
-	}
 
 	@Test
 	public void criteriaTest() {

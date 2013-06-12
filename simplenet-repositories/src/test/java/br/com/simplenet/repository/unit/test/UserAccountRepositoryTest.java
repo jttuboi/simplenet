@@ -1,12 +1,17 @@
 package br.com.simplenet.repository.unit.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -18,113 +23,84 @@ import br.com.simplenet.repository.UserAccountRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/repositoryContext-test.xml" })
-public class UserAccountRepositoryTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class UserAccountRepositoryTest extends
+		AbstractTransactionalJUnit4SpringContextTests {
 
 	@Autowired
 	private UserAccountRepository userAccountRepository;
-	
+
 	private UserAccount userAccount;
-	
+
 	@Before
 	public void setUp() {
 		userAccount = new UserAccount();
+		userAccount.setName("Jairo");
+		userAccount.setEmail("jttuboi@mail.com");
+		userAccount.setPassword("password");
 	}
-	
+
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveTest() throws Exception {
-		userAccount.setName("Jairo");
-		userAccount.setName("jttuboi@mail.com");
-		userAccount.setName("password");
 		userAccountRepository.save(userAccount);
-		
+
 		assertNotNull(userAccount.getId());
-		System.out.println(userAccount.getId());
 	}
-	
+
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void saveNameTest() throws Exception {
-		userAccount.setName("Jairo");
+	public void updateTest() throws Exception {
 		userAccountRepository.save(userAccount);
-		
-		assertNotNull(userAccount.getName());
-		System.out.println(userAccount.getName());
+		userAccount = userAccountRepository.findBy(new Long(2));
+
+		userAccount.setName("Jorge");
+		userAccount.setEmail("jorge@mail.com");
+		userAccount.setPassword("senha");
+
+		UserAccount updatedUser = userAccountRepository.update(userAccount);
+
+		assertEquals("Jorge", updatedUser.getName());
+		assertEquals("jorge@mail.com", updatedUser.getEmail());
+		assertEquals("senha", updatedUser.getPassword());
 	}
-	
+
 	@Test
-	@Transactional(propagation = Propagation.REQUIRED)
-	public void saveEmailTest() throws Exception {
-		userAccount.setEmail("jttuboi@mail.com");
+	public void findByTest() throws Exception {
 		userAccountRepository.save(userAccount);
-		
-		assertNotNull(userAccount.getEmail());
-		System.out.println(userAccount.getEmail());
+		userAccount = userAccountRepository.findBy(new Long(3));
+
+		assertNotNull(userAccount);
 	}
-	
+
 	@Test
-	@Transactional(propagation = Propagation.REQUIRED)
-	public void savePasswordTest() throws Exception {
-		userAccount.setPassword("password");
-		userAccountRepository.save(userAccount);
-		
-		assertNotNull(userAccount.getPassword());
-		System.out.println(userAccount.getPassword());
+	public void findAllTest() throws Exception {
+		UserAccount newUser = new UserAccount();
+		newUser.setName("John");
+		newUser.setEmail("john@mail.com");
+		newUser.setPassword("password2");
+
+		userAccountRepository.save(newUser);
+
+		List<UserAccount> userAccounts = userAccountRepository.findAll();
+
+		assertTrue(userAccounts.size() > 0);
 	}
-	
+
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void deleteTest() throws Exception {
 		userAccountRepository.save(userAccount);
-		
-		userAccountRepository.delete(Long.valueOf(1));
-		
-		assertNull(userAccountRepository.findBy(Long.valueOf(1)));
+
+		userAccountRepository.delete(userAccount);
+
+		assertNull(userAccountRepository.findBy(new Long(1)));
 	}
 	
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void updateTest() throws Exception {
-		userAccount.setName("Jorge");
-		userAccount.setEmail("jorge@mail.com");
-		userAccount.setPassword("senha");
-		userAccountRepository.update(userAccount);
-		
-		assertEquals("Jorge", userAccount.getName());
-		assertEquals("jorge@mail.com", userAccount.getEmail());
-		assertEquals("senha", userAccount.getPassword());
-		System.out.println(userAccount.getName());
-		System.out.println(userAccount.getEmail());
-		System.out.println(userAccount.getPassword());
-	}
-	
-	@Test
-	@Transactional(propagation = Propagation.REQUIRED)
-	public void updateNameTest() throws Exception {
-		userAccount.setName("Jorge");
-		userAccountRepository.update(userAccount);
-		
-		assertEquals("Jorge", userAccount.getName());
-		System.out.println(userAccount.getName());
-	}
-	
-	@Test
-	@Transactional(propagation = Propagation.REQUIRED)
-	public void updateEmailTest() throws Exception {
-		userAccount.setEmail("jorge@mail.com");
-		userAccountRepository.update(userAccount);
-		
-		assertEquals("jorge@mail.com", userAccount.getEmail());
-		System.out.println(userAccount.getEmail());
-	}
-	
-	@Test
-	@Transactional(propagation = Propagation.REQUIRED)
-	public void updatePasswordTest() throws Exception {
-		userAccount.setPassword("senha");
-		userAccountRepository.update(userAccount);
-		
-		assertEquals("senha", userAccount.getPassword());
-		System.out.println(userAccount.getPassword());
+	@ExpectedException(Exception.class)
+	public void deleteExceptionTest() throws Exception {
+		boolean deleted = userAccountRepository.delete(null);
+		assertTrue(deleted);
 	}
 }

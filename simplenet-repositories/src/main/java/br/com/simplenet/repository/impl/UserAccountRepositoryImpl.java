@@ -1,7 +1,10 @@
 package br.com.simplenet.repository.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,27 +21,27 @@ public class UserAccountRepositoryImpl implements UserAccountRepository {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void save(UserAccount userAccount) {
+	public UserAccount save(UserAccount userAccount) {
 		this.entityManager.persist(userAccount);
+		return userAccount;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public boolean delete(Long id) {
-		//precisa retornar algo??
-		// usa cast??
-		UserAccount user = this.entityManager.find(UserAccount.class, id);
-		if (user != null) {
-			this.entityManager.remove(user);
+	public boolean delete(UserAccount userAccount) throws Exception {
+		try {
+			this.entityManager.remove(userAccount);
 			return true;
+		} catch (Exception e) {
+			throw e;
 		}
-		return false;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void update(UserAccount userAccount) {
+	public UserAccount update(UserAccount userAccount) {
 		this.entityManager.merge(userAccount);
+		return userAccount;
 	}
 
 	@Override
@@ -46,11 +49,10 @@ public class UserAccountRepositoryImpl implements UserAccountRepository {
 		return this.entityManager.find(UserAccount.class, id);
 	}
 
-//	@Override
-//	public void findAll() throws Exception {
-//		// TODO Auto-generated method stub
-//		
-//	}
-	
-	
+	@Override
+	public List<UserAccount> findAll() throws Exception {
+		Query q = this.entityManager
+				.createQuery("SELECT user FROM UserAccount user");
+		return q.getResultList();
+	}
 }
