@@ -32,5 +32,17 @@
 			<version>1.8.0.7</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>br.com.simplenet</groupId>
+			<artifactId>simplenet-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

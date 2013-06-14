@@ -5,5 +5,9 @@
 
 	<persistence-unit name="persistenceUnit">
 	<class>br.com.simplenet.entities.UserAccount</class>
+	<class>br.com.simplenet.entities.Profile</class>
+	<properties>
+	    <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+	</properties>
 	</persistence-unit>
 </persistence>

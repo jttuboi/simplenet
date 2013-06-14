@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Before;
@@ -18,7 +19,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.simplenet.entities.Profile;
 import br.com.simplenet.entities.UserAccount;
+import br.com.simplenet.enums.Gender;
 import br.com.simplenet.repository.UserAccountRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,6 +33,8 @@ public class UserAccountRepositoryTest extends
 	private UserAccountRepository userAccountRepository;
 
 	private UserAccount userAccount;
+	private Calendar birthday;
+	private Profile profile;
 
 	@Before
 	public void setUp() {
@@ -37,6 +42,14 @@ public class UserAccountRepositoryTest extends
 		userAccount.setName("Jairo");
 		userAccount.setEmail("jttuboi@mail.com");
 		userAccount.setPassword("password");
+
+		// birthday = Calendar.getInstance();
+		// birthday.set(1989, 04, 06);
+		
+		// profile = new Profile();
+		// profile.setBirthday(birthday);
+		// profile.setAbout("bla");
+		// profile.setGender(Gender.MALE);
 	}
 
 	@Test
@@ -95,7 +108,7 @@ public class UserAccountRepositoryTest extends
 
 		assertNull(userAccountRepository.findBy(new Long(1)));
 	}
-	
+
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
 	@ExpectedException(Exception.class)
@@ -103,4 +116,14 @@ public class UserAccountRepositoryTest extends
 		boolean deleted = userAccountRepository.delete(null);
 		assertTrue(deleted);
 	}
+
+	// @Test
+	// @Transactional(propagation = Propagation.REQUIRED)
+	// public void saveProfileTest() throws Exception {
+	// 	userAccount.setProfile(profile);
+		
+	// 	UserAccount returnedUserAccount = userAccountRepository.save(userAccount);
+		
+	// 	assertNotNull(returnedUserAccount.getProfile().getId());
+	// }
 }
