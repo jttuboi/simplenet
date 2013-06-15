@@ -2,7 +2,6 @@ package br.com.simplenet.repository.unit.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
@@ -43,29 +42,27 @@ public class UserAccountRepositoryTest extends
 		userAccount.setEmail("jttuboi@mail.com");
 		userAccount.setPassword("password");
 
-		// birthday = Calendar.getInstance();
-		// birthday.set(1989, 04, 06);
-		
-		// profile = new Profile();
-		// profile.setBirthday(birthday);
-		// profile.setAbout("bla");
-		// profile.setGender(Gender.MALE);
+		birthday = Calendar.getInstance();
+		birthday.set(1989, 04, 06);
+
+		profile = new Profile();
+		profile.setBirthday(birthday);
+		profile.setAbout("bla");
+		profile.setGender(Gender.MALE);
 	}
 
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveTest() throws Exception {
-		userAccountRepository.save(userAccount);
-
+		userAccount = userAccountRepository.save(userAccount);
 		assertNotNull(userAccount.getId());
 	}
 
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void updateTest() throws Exception {
-		userAccountRepository.save(userAccount);
-		userAccount = userAccountRepository.findBy(new Long(2));
-
+		userAccount = userAccountRepository.findBy(new Long(1));
+				
 		userAccount.setName("Jorge");
 		userAccount.setEmail("jorge@mail.com");
 		userAccount.setPassword("senha");
@@ -79,9 +76,7 @@ public class UserAccountRepositoryTest extends
 
 	@Test
 	public void findByTest() throws Exception {
-		userAccountRepository.save(userAccount);
-		userAccount = userAccountRepository.findBy(new Long(3));
-
+		userAccount = userAccountRepository.findBy(new Long(1));
 		assertNotNull(userAccount);
 	}
 
@@ -93,7 +88,6 @@ public class UserAccountRepositoryTest extends
 		newUser.setPassword("password2");
 
 		userAccountRepository.save(newUser);
-
 		List<UserAccount> userAccounts = userAccountRepository.findAll();
 
 		assertTrue(userAccounts.size() > 0);
@@ -102,11 +96,8 @@ public class UserAccountRepositoryTest extends
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void deleteTest() throws Exception {
-		userAccountRepository.save(userAccount);
-
-		userAccountRepository.delete(userAccount);
-
-		assertNull(userAccountRepository.findBy(new Long(1)));
+		UserAccount user = userAccountRepository.save(userAccount);
+		assertTrue(userAccountRepository.delete(user));
 	}
 
 	@Test
@@ -116,14 +107,11 @@ public class UserAccountRepositoryTest extends
 		boolean deleted = userAccountRepository.delete(null);
 		assertTrue(deleted);
 	}
-
-	// @Test
-	// @Transactional(propagation = Propagation.REQUIRED)
-	// public void saveProfileTest() throws Exception {
-	// 	userAccount.setProfile(profile);
-		
-	// 	UserAccount returnedUserAccount = userAccountRepository.save(userAccount);
-		
-	// 	assertNotNull(returnedUserAccount.getProfile().getId());
-	// }
+	@Test
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void saveProfileTest() throws Exception {
+		userAccount.setProfile(profile);
+		UserAccount returnedUserAccount = userAccountRepository.save(userAccount);		
+		assertNotNull(returnedUserAccount.getProfile());
+	}
 }

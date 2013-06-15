@@ -25,10 +25,12 @@ public class ProfileTest {
 		Calendar birthday = Calendar.getInstance();
 		birthday.set(1989, 04, 06);
 		
+		profile.setId(1L);		
 		profile.setBirthday(birthday);
 		profile.setAbout("bla bla");
 		profile.setGender(Gender.MALE);
 		
+		assertNotNull(profile.getId());
 		assertNotNull(profile.getBirthday());
 		assertNotNull(profile.getAbout());
 		assertNotNull(profile.getGender());

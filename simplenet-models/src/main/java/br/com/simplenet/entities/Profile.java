@@ -4,7 +4,8 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,9 +31,9 @@ public class Profile {
 	@Column(name = "about", columnDefinition = "text")
 	private String about;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "gender", nullable = false, length = 1)
 	private Gender gender;
-
 	
 	public Long getId() {
 		return id;
@@ -65,6 +66,5 @@ public class Profile {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-
 
 }

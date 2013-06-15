@@ -6,6 +6,14 @@ public enum Gender {
 	
 	private String value;
 	
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 	private Gender(String value) {
 		this.value = value;
 	}
