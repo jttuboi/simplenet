@@ -3,7 +3,10 @@ Simplenet Application
 
 Packages
 --------
+- simplenet-core
+- simplenet-models
 - simplenet-repositories
+- simplenet-services
 
 Requirements
 ------------
@@ -15,7 +18,7 @@ Requirements
 Testing
 -------
 - JUnit
-- Mukito
+- Mockito
 
 
 Compile
