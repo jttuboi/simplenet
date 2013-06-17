@@ -59,25 +59,10 @@ public class UserAccountRepositoryTest extends
 	}
 
 	@Test
-	@Transactional(propagation = Propagation.REQUIRED)
-	public void updateTest() throws Exception {
-		userAccount = userAccountRepository.findBy(new Long(1));
-				
-		userAccount.setName("Jorge");
-		userAccount.setEmail("jorge@mail.com");
-		userAccount.setPassword("senha");
-
-		UserAccount updatedUser = userAccountRepository.update(userAccount);
-
-		assertEquals("Jorge", updatedUser.getName());
-		assertEquals("jorge@mail.com", updatedUser.getEmail());
-		assertEquals("senha", updatedUser.getPassword());
-	}
-
-	@Test
 	public void findByTest() throws Exception {
-		userAccount = userAccountRepository.findBy(new Long(1));
-		assertNotNull(userAccount);
+		userAccount = userAccountRepository.save(userAccount);
+		UserAccount  user = userAccountRepository.findBy(userAccount.getId());
+		assertNotNull(user);
 	}
 
 	@Test
@@ -93,6 +78,27 @@ public class UserAccountRepositoryTest extends
 		assertTrue(userAccounts.size() > 0);
 	}
 
+	
+	@Test
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void updateTest() throws Exception {
+
+		UserAccount user = userAccountRepository.save(userAccount);
+		
+		userAccount = userAccountRepository.findBy(user.getId());
+				
+		userAccount.setName("Jorge");
+		userAccount.setEmail("jorge@mail.com");
+		userAccount.setPassword("senha");
+
+		UserAccount updatedUser = userAccountRepository.update(userAccount);
+
+		assertEquals("Jorge", updatedUser.getName());
+		assertEquals("jorge@mail.com", updatedUser.getEmail());
+		assertEquals("senha", updatedUser.getPassword());
+	}
+
+	
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void deleteTest() throws Exception {
