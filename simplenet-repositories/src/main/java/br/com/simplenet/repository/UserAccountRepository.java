@@ -4,13 +4,13 @@ import java.util.List;
 
 import br.com.simplenet.entities.UserAccount;
 
-public interface UserAccountRepository {
+public interface UserAccountRepository extends BaseRepository<UserAccount> {
 
-	UserAccount save(UserAccount userAccount) throws Exception;
-
-	boolean delete(UserAccount userAccount) throws Exception;
-
-	UserAccount update(UserAccount userAccount) throws Exception;
+//	UserAccount save(UserAccount userAccount) throws Exception;
+//
+//	boolean delete(UserAccount userAccount) throws Exception;
+//
+//	UserAccount update(UserAccount userAccount) throws Exception;
 
 	UserAccount findBy(Long id) throws Exception;
 

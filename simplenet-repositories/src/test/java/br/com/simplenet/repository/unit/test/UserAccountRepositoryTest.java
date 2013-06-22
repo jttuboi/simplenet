@@ -54,7 +54,7 @@ public class UserAccountRepositoryTest extends
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveTest() throws Exception {
-		userAccount = userAccountRepository.save(userAccount);
+		userAccount = (UserAccount) userAccountRepository.save(userAccount);
 		assertNotNull(userAccount.getId());
 	}
 
